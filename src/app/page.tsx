@@ -12,13 +12,14 @@ export default function Home() {
 
   function sendToServer() {
     const value = localStorage.getItem("search");
-    fetch("http://localhost:3000/api", {
+    fetch("/api", {
       method: "POST",
       body: JSON.stringify({ search: value || "Default" }),
     })
       .then((res) => res.text())
       .then((text) => {
-        document.querySelector(".response")!.innerHTML = text;
+        let prettifed = JSON.stringify(JSON.parse(text), null, 2);
+        document.querySelector(".response")!.innerHTML = prettifed;
       });
   }
 
@@ -40,9 +41,9 @@ export default function Home() {
         className="w-full h-12 px-4 rounded-lg border border-gray-700 focus:outline-none bg-gray-800"
         onClick={sendToServer}
       >
-        Send to server
+        Send to server to forward to httpbin.org to test, then get response
       </button>
-      <div className="response"></div>
+      <pre className="response"></pre>
     </main>
   );
 }
