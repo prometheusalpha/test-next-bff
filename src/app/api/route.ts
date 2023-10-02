@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 export async function POST(request: Request) {
   let data = await request.json();
   let search = data.search || "No search term provided";
